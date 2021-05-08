@@ -13,6 +13,15 @@ class PostsController < ApplicationController
     render json: PostSerializer.new(@post).to_serialized_json
   end
 
+  #create most comments path
+
+  def most_comments
+
+    @posts = Post.all.sort_by {|post| post.comments.length}.reverse
+    render json: PostSerializer.new(@posts).to_serialized_json
+
+  end
+
   # POST /posts
   def create
     @post = Post.new(post_params)
